@@ -2,78 +2,58 @@ game = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
 
 
 def build_board():
-    row1 = " " + game[0][0] + " | " + game[0][1] + " | " + game[0][2] + " "
-
-    row2 = " " + game[1][0] + " | " + game[1][1] + " | " + game[1][2] + " "
-
-    row3 = " " + game[2][0] + " | " + game[2][1] + " | " + game[2][2] + " "
-    blanks = "-----------"
-    print(row1)
-    print(blanks)
-    print(row2)
-    print(blanks)
-    print(row3)
+    for row in game:
+        print(" " + " | ".join(row) + " ")
+        print("-----------")
 
 
 def player_turn(turn):
-    piece = ""
-
-    if turn % 2 == 0:
-        piece = "X"
-    else:
-        piece = "O"
-
-    return piece
+    return "X" if turn % 2 == 0 else "O"
 
 
 def player_choice(player):
-
     validchoice = False
-
     while not validchoice:
-        choice = int(input("Select position 1-9 to select block:"))-1
+        choice = int(input("Select position 1-9 to select block: ")) - 1
         if choice < 0 or choice > 8:
-            print("out of range.")
+            print("Out of range.")
         else:
-            chosen_row = choice//3
+            chosen_row = choice // 3
             chosen_column = choice % 3
             if game[chosen_row][chosen_column] == " ":
                 game[chosen_row][chosen_column] = player
                 validchoice = True
             else:
-                print("invalid choice. position already occupied")
+                print("Invalid choice. Position already occupied.")
 
 
-def checkvictory():
-    for row in range(len(game)):
-        if game[row][0] == game[row][1] and game[row][0] == game[row][2] and game[row][0] != " ":
-            print(1)
+def check_victory():
+    # Check rows and columns
+    for i in range(3):
+        if game[i][0] == game[i][1] == game[i][2] != " ":
             return True
-        for column in range(len(game[row])):
-            if game[0][column] == game[1][column] and game[0][column] == game[2][column] and game[0][column] != " ":
-                print(2)
-                return True
-    if game[0][0] == game[1][1] and game[0][0] == game[2][2] and game[0][0] != " ":
-        print(3)
+        if game[0][i] == game[1][i] == game[2][i] != " ":
+            return True
+    # Check diagonals
+    if game[0][0] == game[1][1] == game[2][2] != " ":
         return True
-    elif game[0][2] == game[1][1] and game[0][2] == game[2][0] and game[0][2] != " ":
-        print(4)
+    if game[0][2] == game[1][1] == game[2][0] != " ":
         return True
-    else:
-        return False
+    return False
 
 
 turns = 0
 
 while turns < 9:
-    player_choice(player_turn(turns))
-    if checkvictory():
-        build_board()
-        print(player_turn(turns) + " wins!")
-        break
-
     build_board()
-
+    current_player = player_turn(turns)
+    player_choice(current_player)
+    if check_victory():
+        build_board()
+        print(current_player + " wins!")
+        break
     turns += 1
+
 if turns == 9:
-    print("It's a tie")
+    build_board()
+    print("It's a tie!")
