@@ -38,6 +38,9 @@ If all positions are filled without a winner, the game ends in a tie.
 
 Code Structure
 build_board(): Displays the current state of the game board.
+
 player_turn(turn): Determines the current player's marker based on the turn number.
+
 player_choice(player): Handles player input and updates the game state.
+
 check_victory(): Checks if there's a winner or if the game is a tie.
