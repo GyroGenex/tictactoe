@@ -22,6 +22,12 @@ def player_turn(turn):
         piece = "X"
     else:
         piece = "O"
+
+    return piece
+
+
+def player_choice(player):
+
     validchoice = False
 
     while not validchoice:
@@ -32,17 +38,42 @@ def player_turn(turn):
             chosen_row = choice//3
             chosen_column = choice % 3
             if game[chosen_row][chosen_column] == " ":
-                game[chosen_row][chosen_column] = piece
+                game[chosen_row][chosen_column] = player
                 validchoice = True
             else:
                 print("invalid choice. position already occupied")
 
-        build_board()
+
+def checkvictory():
+    for row in range(len(game)):
+        if game[row][0] == game[row][1] and game[row][0] == game[row][2] and game[row][0] != " ":
+            print(1)
+            return True
+        for column in range(len(game[row])):
+            if game[0][column] == game[1][column] and game[0][column] == game[2][column] and game[0][column] != " ":
+                print(2)
+                return True
+    if game[0][0] == game[1][1] and game[0][0] == game[2][2] and game[0][0] != " ":
+        print(3)
+        return True
+    elif game[0][2] == game[1][1] and game[0][2] == game[2][0] and game[0][2] != " ":
+        print(4)
+        return True
+    else:
+        return False
 
 
 turns = 0
 
 while turns < 9:
-    player_turn(turns)
+    player_choice(player_turn(turns))
+    if checkvictory():
+        build_board()
+        print(player_turn(turns) + " wins!")
+        break
+
+    build_board()
 
     turns += 1
+if turns == 9:
+    print("It's a tie")
