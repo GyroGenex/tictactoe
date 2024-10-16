@@ -1,7 +1,8 @@
-#Tic-Tac-Toe Game
+# Tic-Tac-Toe Game
+
 A simple command-line implementation of the classic Tic-Tac-Toe game for two players. Players take turns choosing a position on a 3x3 grid to place their markers, either "X" or "O." The game checks for a winner or a tie after each turn.
 
-##Features
+## Features
 
 Two-player gameplay
 
@@ -11,7 +12,7 @@ Checks for wins and ties
 
 Displays the game board after each turn
 
-##Game Instructions
+## Game Instructions
 
 The game is played on a 3x3 grid.
 
@@ -27,7 +28,7 @@ The first player to align three of their markers vertically, horizontally, or di
 
 If all positions are filled without a winner, the game ends in a tie.
 
-##Code Structure
+## Code Structure
 
 build_board(): Displays the current state of the game board.
 
